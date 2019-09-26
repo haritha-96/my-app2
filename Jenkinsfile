@@ -9,9 +9,9 @@ pipeline{
                 }
             }
         }
-        stage('deploy development branch to-tomcat'){
+        stage('deploy master branch to-tomcat'){
             when{
-                branch 'development'
+                branch 'master'
             }
             steps{
                 sshagent(['tomcat-dev']){
