@@ -1,8 +1,8 @@
-pipeline {
+pipeline{
     agent any
-    stages {
+    stages{
         stage('build using maven') {
-            steps {
+            steps{
                 def mvnHome = tool name: 'Apache Maven', type: 'maven'
                 def mvnCMD = "${mvnHome}/bin/mvn"
                 sh "${mvnCMD} clean package"
@@ -10,7 +10,7 @@ pipeline {
             }
         }
         stage('deploy development branch to-tomcat'){
-            when {
+            when{
                 branch 'development'
             }
             steps{
