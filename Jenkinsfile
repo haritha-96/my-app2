@@ -1,17 +1,16 @@
 pipeline{
-    agent any
-    stages{
+  agent any
+    stages {
         stage('build using maven') {
-            steps{
+            steps {
                 def mvnHome = tool name: 'Apache Maven', type: 'maven'
                 def mvnCMD = "${mvnHome}/bin/mvn"
                 sh "${mvnCMD} clean package"
-                }
             }
         }
-        stage('deploy master branch to-tomcat'){
-            when{
-                branch 'master'
+        stage('deploy development branch to-tomcat'){
+            when {
+                branch 'development'
             }
             steps{
                 sshagent(['tomcat-dev']){
