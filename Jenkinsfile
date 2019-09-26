@@ -1,11 +1,6 @@
 pipeline {
     agent any
     stages {
-        stage('source checkout') {
-            steps {
-                git credentialsId: 'multibranch', url: 'https://github.com/haritha-96/my-app2'
-            }
-        }
         stage('build using maven') {
             steps {
                 def mvnHome = tool name: 'Apache Maven', type: 'maven'
