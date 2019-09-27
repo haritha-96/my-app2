@@ -9,12 +9,21 @@ pipeline{
                 sh "mvn clean package"
             }
         }
+      
       stage("development branch"){
           when {
                 branch 'development'
             }
           steps {
                 echo 'hello'
+            }
+      }
+      stage("feature branch"){
+          when {
+                branch 'feature'
+            }
+          steps {
+                echo 'welcome to feature branch'
             }
       }
         stage("deploy to-tomcat"){
