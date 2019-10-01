@@ -14,11 +14,16 @@ pipeline{
           when {
                 branch 'development'
             }
-          steps {
-                echo 'hello'
+          steps{
+                sshagent(['tomcat-dev']){
+                    sh  """
+                        scp -o StrictHostKeyChecking=no target/*.war ec2-user@172.31.45.91:/home/ec2-user/tomcat8/webapps/
+                        ssh ec2-user@172.31.45.91 /home/ec2-user/tomcat8/bin/shutdown.sh
+                        ssh ec2-user@172.31.45.91 /home/ec2-user/tomcat8/bin/startup.sh
+                    """
+                }
             }
-      }
-      stage("feature branch"){
+      }stage("feature branch"){
           when {
                 branch 'feature'
             }
@@ -26,7 +31,7 @@ pipeline{
                 echo 'welcome to feature branch'
             }
       }
-        stage("deploy to-tomcat"){
+        '''stage("deploy to-tomcat"){
             steps{
                 sshagent(['tomcat-dev']){
                     sh  """
@@ -36,6 +41,6 @@ pipeline{
                     """
                 }
             }
-        }
+        }'''
     }
 }
