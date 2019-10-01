@@ -23,7 +23,8 @@ pipeline{
                     """
                 }
             }
-      }stage("feature branch"){
+      }
+      stage("feature branch"){
           when {
                 branch 'feature'
             }
@@ -31,7 +32,7 @@ pipeline{
                 echo 'welcome to feature branch'
             }
       }
-        '''stage("deploy to-tomcat"){
+        stage("deploy to-tomcat"){
             steps{
                 sshagent(['tomcat-dev']){
                     sh  """
@@ -41,6 +42,6 @@ pipeline{
                     """
                 }
             }
-        }'''
+        }
     }
 }
